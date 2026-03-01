@@ -1,6 +1,6 @@
 # QSMC Template Modpack
 
-This repository contains the source for a Minecraft 1.12.2 modpack.  It uses
+This repository contains the source for a Minecraft 1.20.1 modpack.  It uses
 metadata files to describe which mods belong in the pack and a small Python
 script to download them and bundle everything into a ZIP.  The workflow will
 build the pack for you automatically on GitHub.
@@ -139,4 +139,5 @@ using releases.
 ---
 
 See the [Dimension‑Gateway repo](https://github.com/TeamDimensional/Dimension-Gateway)
+
 I looked at it for information. It's quite nice.
