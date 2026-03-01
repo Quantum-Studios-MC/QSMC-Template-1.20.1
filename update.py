@@ -68,18 +68,17 @@ def main():
     for fn in os.listdir(index_path):
         if not fn.endswith(".toml"): continue
         with open(index_path / fn, "rb") as fd: data = tomllib.load(fd)
-        mn = data.get("filename")
-        if not mn: continue
-        needed_files.add(mn)
-        if (mods_path / mn).exists(): skipped+=1
+        mod_file_name = data.get("filename")
+        if not mod_file_name: continue
+        needed_files.add(mod_file_name)
+        if (mods_path / mod_file_name).exists(): skipped+=1
         else:
             cf_section = data.get("update", {}).get("curseforge", {})
             cfid = cf_section.get("file-id")
-            mr_section = data.get("update", {}).get("modrinth", {})
-            mr_url = mr_section.get("url")
-            if cfid: downloaded.append(DownloadFile(data.get("name","?"),mn,str(cfid)))
-            elif mr_url: downloaded.append(DownloadFile(data.get("name","?"),mn,mr_url))
-            else: print(f"warning: no curseforge/modrinth info for '{mn}', skipping download")
+            mr_url = data.get("download", {}).get("url")
+            if cfid: downloaded.append(DownloadFile(data.get("name","?"),mod_file_name,str(cfid)))
+            elif mr_url: downloaded.append(DownloadFile(data.get("name","?"),mod_file_name,mr_url))
+            else: print(f"warning: no curseforge/modrinth info for '{mod_file_name}', skipping download")
     if mods_path.exists():
         for fn in os.listdir(mods_path):
             if not fn.endswith(".jar") or fn in needed_files: continue
